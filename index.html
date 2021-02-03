@@ -1,0 +1,1337 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safewear | Made by Bitarrays</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+        body {
+            margin:0;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .section {
+            height: 100vh;
+            width: 100%;
+            transition: 1s;
+            position: absolute;
+        }
+
+        .progress {
+            position: fixed;
+            z-index: 9999;
+            left: 90px;
+            top: 20%;
+            height: 80%;
+            border-left: 1px solid #000;
+        }
+
+        .progress .current {
+            border: 5px solid #000;
+            transform: translate(-50.5%, 0);
+            position: absolute;
+            top: 0;
+            height: 6%;
+            transition: 1s;
+        }
+
+        .progress .text {
+            position: absolute;
+            transform: rotate(-90deg);
+            top: 5%;
+            left: -130px;
+            width: 180px;
+            text-align: left;
+        }
+
+        p {
+            color: #000;
+        }
+
+        .menu_image {
+            height: 15vh;
+            width: auto;
+            position: absolute;
+            z-index: 9999;
+            left: 89px;
+            transform: translateX(-50%);
+            top: 1.5vh;
+        }
+
+        .contact {
+            cursor: pointer;
+        }
+
+        .menu {
+            position: absolute;
+            left: 1px;
+            top: 0;
+            color: #fff;
+            opacity: 0;
+            visibility: hidden;
+            transition: 1s;
+            background-color: rgba(50, 50, 50, .7);
+            width: max-content;
+            padding-inline-start: 0;
+            padding: 10px 20px 20px 20px;
+            border-radius: 0 5px 5px 0px;
+            z-index: -1;
+        }
+
+        .menu li {
+            display: block;
+            border-bottom: 1px solid gray;
+            padding: 5px 10px;
+        }
+
+        .menu li:hover {
+            cursor: pointer;
+        }
+
+        .progress:hover .menu{
+            opacity: 1;
+            visibility: initial;
+        }
+
+        .progress:hover .contact:hover ~ .menu {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .contact {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            position: absolute;
+            bottom: 2vh;
+            left: -19px;
+        }
+
+        .contact .icon {
+            background-color: #fff;
+            border: 1px solid #000;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            padding: 5px;
+            margin-right: 10px;
+        }
+
+        .contact .icon svg {
+            fill: rgb(110, 110, 110);
+        }
+
+        .contact > p {
+            text-transform: uppercase;
+        }
+
+        .chip-presentation {
+            border-radius: 5px;
+            background-color: #e0e0e0;
+            width: 90%;
+            height: 40vw;
+            max-height: 100%;
+            max-width: 170vh;
+        }
+
+        .chip-presentation .model, .chip-presentation .text {
+            width: 50%;
+        }
+
+        .chip-presentation .model > canvas {
+            outline: none;
+            border-radius: 5px;
+        }
+
+
+        .title {
+            position: relative;
+            left: 200px;
+            z-index: 0;
+        }
+
+
+        .section > .title > .left {
+            font-size: 1.3em;
+            color: rgb(110, 110, 110);
+            font-weight: 600;
+            letter-spacing: 2px;
+            position: absolute;
+            transform: rotate(-90deg) translate(-150%, -300%);
+        }
+
+        .section > .title > .toptitle {
+            position: absolute;
+            left: 87px;
+            top: 40px;
+            font-size: 1.3em;
+            letter-spacing: 2px;
+            font-weight: 600;
+            color: rgb(60, 60, 60);
+            z-index: 1;
+        }
+
+        .section > .title .subtitle {
+            font-size: 5vmin;
+            font-weight: 700;
+            position: absolute;
+            top: 100px;
+            left: 80px;
+            z-index: 1;
+            width: max-content;
+        }
+
+        .section > .title .subtitle > .behind {
+            font-size: 1.6em;
+            position: absolute;
+            top: -190%;
+            left: 30px;
+            z-index: -2;
+            color: rgba(170, 170, 170, .25);
+            width: max-content;
+        }
+
+        .section > .safearea {
+            width: calc(100% - 500px);
+            height: calc(100% - 300px);
+            margin-top: calc(250px);
+            margin-left: 300px;
+        }
+
+        .container {
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin: auto;
+            filter: url('#goo');
+            animation: rotate-move 2s ease-in-out infinite;
+        }
+
+        .dot { 
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: #000;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+
+        .dot-3 {
+            background-color: rgba(38, 38, 38, .8);
+            animation: dot-3-move 2s ease infinite, index 6s ease infinite;
+        }
+
+        .dot-2 {
+            background-color: rgb(150, 165, 173);
+            animation: dot-2-move 2s ease infinite, index 6s -4s ease infinite;
+        }
+
+        .dot-1 {
+            background-color: rgba(104, 105, 107, .8);
+            animation: dot-1-move 2s ease infinite, index 6s -2s ease infinite;
+        }
+
+        @keyframes dot-3-move {
+            20% {transform: scale(1)}
+            45% {transform: translateY(-18px) scale(.45)}
+            60% {transform: translateY(-90px) scale(.45)}
+            80% {transform: translateY(-90px) scale(.45)}
+            100% {transform: translateY(0px) scale(1)}
+        }
+
+        @keyframes dot-2-move {
+            20% {transform: scale(1)}
+            45% {transform: translate(-16px, 12px) scale(.45)}
+            60% {transform: translate(-80px, 60px) scale(.45)}
+            80% {transform: translate(-80px, 60px) scale(.45)}
+            100% {transform: translateY(0px) scale(1)}
+        }
+
+        @keyframes dot-1-move {
+            20% {transform: scale(1)}
+            45% {transform: translate(16px, 12px) scale(.45)}
+            60% {transform: translate(80px, 60px) scale(.45)}
+            80% {transform: translate(80px, 60px) scale(.45)}
+            100% {transform: translateY(0px) scale(1)}
+        }
+
+        @keyframes rotate-move {
+            55% {transform: translate(-50%, -50%) rotate(0deg)}
+            80% {transform: translate(-50%, -50%) rotate(360deg)}
+            100% {transform: translate(-50%, -50%) rotate(360deg)}
+        }
+
+        @keyframes index {
+            0%, 100% {z-index: 3}
+            33.3% {z-index: 2}
+            66.6% {z-index: 1}
+        }
+        
+        .loading {
+            height: 100%;
+            width: 100%;
+            position: fixed;
+            background-color: #fff;
+            z-index: 10001;
+            transition: 1s;
+            opacity: 1;
+        }
+
+        .flex-section {
+            display: flex;
+            flex-direction: row;
+            height: 100%;
+        }
+
+        .flex-section.center {
+            justify-content: center;
+        }
+
+        .flex-section.center.mobile {
+            justify-content: unset;
+        }
+
+        .flex-section > .left, .flex-section > .right {
+            width: 50%;
+            height: 100%;
+        }
+
+
+        @media screen and (max-width: 1000px), screen and (max-height: 700px) {
+            body {
+                overflow: auto;
+            }
+            .section {
+                position: relative;
+                width: 100%;
+                height: max-content;
+                min-height: 40vh;
+            }
+
+            .section > .safearea {
+                position: relative;
+                margin: 0;
+            }
+
+            .progress, .menu_image {
+                display: none;
+            }
+
+            .title {
+                position: relative;
+                left: 0px;
+            }
+
+
+            .section > .title > .left {
+                font-size: 13px;
+                color: rgb(110, 110, 110);
+                font-weight: 600;
+                letter-spacing: 2px;
+                position: relative;
+                transform: rotate(-90deg) translateX(20px);
+                top: unset;
+                left: -43%;
+            }
+
+            .section > .title > .toptitle {
+                position: relative;
+                font-size: 13px;
+                letter-spacing: 2px;
+                font-weight: 600;
+                color: rgb(60, 60, 60);
+                z-index: 1;
+                left: 50px;
+                top: -5px;
+                width: max-content;
+            }
+
+            .section > .title .subtitle {
+                font-size: 30px;
+                font-weight: 700;
+                position: relative;
+                left: 50px;
+                top: 0;
+                z-index: 1;
+                width: max-content;
+            }
+
+            .section > .title .subtitle > .behind {
+                font-size: 120%;
+                position: absolute;
+                left: 1%;
+                z-index: -2;
+                top: -55px;
+                color: rgba(170, 170, 170, .25);
+            }
+
+            .section > .safearea {
+                width: calc(100% - 140px);
+                margin-left: 70px;
+                height: max-content;
+                margin-top: 30px;
+            }
+        }
+
+        @media screen and (max-width: 800px), screen and (min-width: 1000px) and (max-width: 1350px) {
+            .flex-section {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .flex-section.nocolumn {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .flex-section.chip-presentation {
+                width: 100%;
+                height: max-content;
+            }
+
+            .flex-section > .model, .flex-section > .text {
+                width: 100%;
+                height: calc((100vw - 120px));
+            }
+
+            .flex-section > .text {
+                height: calc((100vw - 120px) / 2);
+            }
+
+            .flex-section > .left, .flex-section > .right {
+                width: 100%;
+            }
+        }
+
+        @media screen and (max-width: 800px) {
+            .flex-section.nocolumn {
+                flex-direction: column;
+                height: max-content;
+            }
+
+            .flex-section {
+                height: max-content;
+            }
+        }
+
+        .left > .title {
+            left: 0;
+            font-weight: 600;
+            font-size: 20px;
+        }
+
+        .left > .message {
+            font-weight: 300;
+            color: #8f8f8f;
+            font-size: 16px;
+        }
+
+        .icons {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .icons > .icon {
+            width: 300px;
+            height: 300px;
+            max-width: 33%;
+            max-height: calc(0.33 * (100vw - 500px));
+            background-color: rgba(38, 38, 38, .8);
+            border-radius: 50%;
+        }
+
+        .icons > .icon:first-child {
+            transform: translateX(20%);
+        }
+
+        .icons > .icon:last-child {
+            transform: translateX(-20%);
+        }
+
+        @media screen and (min-width: 1600px) {
+            .left > .title {
+                left: 0;
+                font-weight: 600;
+                font-size: 2em;
+                padding-right: 10%;
+            }
+
+            .left > .message {
+                font-weight: 300;
+                color: #8f8f8f;
+                font-size: 1.2em;
+                padding-right: 5%;
+            }
+        }
+
+        @media screen and (max-width: 1000px) {
+            .icons .icon {
+                max-height: calc(0.33 * (100vw - 140px));
+            }
+        }
+
+        .safearea > .texts {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .safearea > .texts > .text {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            width: 30%;
+            margin-left: 20px;
+        }
+
+        .safearea > .texts > .text:last-child {
+            margin-left: 0;
+        }
+
+
+        .safearea > .texts > .text .letter {
+            border-radius: 50%;
+            flex: 2;
+            min-width: 25px;
+            max-width: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(38, 38, 38, .8);
+            color: #fff;
+            font-weight: 600;
+            font-size: 130%;
+        }
+
+        .safearea > .texts > .text > .content {
+            margin-left: 20px;
+            flex: 6;
+        }
+
+        .safearea > .texts > .text > .content > .title {
+            left: 0;
+            font-weight: 600;
+        }
+
+        @media screen and (max-width: 700px), screen and (min-width: 1000px) and (max-width: 1250px) {
+            .safearea > .texts {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .safearea > .icons {
+                display: none;
+            }
+
+            .safearea > .texts > .text {
+                width: 90%;
+                margin: 20px 0;
+            }
+        }
+
+        @media screen and (min-width: 1000px) and (max-width: 1250px) {
+            .safearea > .texts.last {
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .safearea > .texts.last > .text {
+                width: 45%;
+                margin: 0;
+            }
+        }
+
+        @media screen and (min-width: 1000px) and (max-width: 1350px) {
+            .safearea .left.hide {
+                display: none;
+            }
+        }
+
+        @media screen and (min-width: 900px) and (max-height: 700px) {
+            .title > .left {
+                display: none;
+            }
+        }
+
+        .profiles {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            width: 90%;
+            max-width: 800px;
+            justify-content: center;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .profiles .profile {
+            min-width: 130px;
+            width: 30%;
+            margin: 1.5%;
+            max-width: 220px;
+            border-radius: 50%;
+            background-color: aquamarine;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .profiles .profile p {
+            text-align: center;
+            max-width: 30%;
+            color: #000;
+            font-weight: 600;
+            position: absolute;
+            transform: translateY(20px);
+        }
+
+        .profiles .profile:nth-child(6), .profiles .profile:nth-child(4), .profiles .profile:nth-child(5) {
+            margin-top: calc(3% + 40px);
+        }
+
+        @media screen and (max-width: 620px) {
+            .profiles {
+                max-width: 200px;
+            }
+
+            .profiles .profile {
+                margin: 5% 0;
+                width: 80%;
+                margin-top: calc(5% + 40px);
+            }
+
+            .profiles .profile p {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body id="body">
+    <div class="loading" id="loading">
+        <div class="container">
+            <div class="dot dot-1"></div>
+            <div class="dot dot-2"></div>
+            <div class="dot dot-3"></div>
+        </div>
+    </div>
+    <img src="bitarrays.png" alt="" class="menu_image">
+    <div class="progress">
+        <p class="text" style="text-transform: uppercase;">MENU</p>
+        <div class="current" id="current"></div>
+        <div class="contact" onclick="window.location.href = 'https\://bitarrays.fr/contact'">
+            <div class="icon">
+                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 260.666 260.666" style="enable-background:new 0 0 260.666 260.666;" xml:space="preserve">
+                    <g>
+                        <path d="M236.666,40.882H24c-13.233,0-24,10.767-24,24v130.902c0,13.233,10.767,24,24,24h212.666c13.233,0,24-10.767,24-24V64.882
+                            C260.666,51.648,249.899,40.882,236.666,40.882z M245.666,195.784c0,4.962-4.037,9-9,9H24c-4.963,0-9-4.038-9-9V64.882
+                            c0-4.962,4.037-9,9-9h212.666c4.963,0,9,4.038,9,9V195.784z"/>
+                        <path d="M216.04,83.703h-68.933c-3.314,0-6,2.687-6,6s2.686,6,6,6h68.933c3.314,0,6-2.687,6-6S219.354,83.703,216.04,83.703z"/>
+                        <path d="M216.04,164.963h-68.933c-3.314,0-6,2.686-6,6c0,3.313,2.686,6,6,6h68.933c3.314,0,6-2.687,6-6
+                            C222.04,167.649,219.354,164.963,216.04,164.963z"/>
+                        <path d="M216.04,118.411h-41.718c-3.313,0-6,2.687-6,6s2.687,6,6,6h41.718c3.314,0,6-2.687,6-6S219.354,118.411,216.04,118.411z"/>
+                        <path d="M216.04,141.686h-41.718c-3.313,0-6,2.687-6,6c0,3.314,2.687,6,6,6h41.718c3.314,0,6-2.686,6-6
+                            C222.04,144.373,219.354,141.686,216.04,141.686z"/>
+                        <path d="M85.256,83.703c-25.711,0-46.629,20.917-46.629,46.629c0,25.712,20.918,46.631,46.629,46.631c3.313,0,6-2.687,6-6
+                            c0-3.314-2.687-6-6-6c-19.095,0-34.629-15.535-34.629-34.631c0-19.094,15.534-34.629,34.629-34.629
+                            c19.095,0,34.629,15.535,34.629,34.629v10.16c0,2.292-1.865,4.156-4.158,4.156c-2.292,0-4.157-1.864-4.157-4.156v-10.16
+                            c0-14.51-11.804-26.314-26.313-26.314c-14.51,0-26.314,11.805-26.314,26.314c0,14.511,11.805,26.316,26.314,26.316
+                            c6.688,0,12.798-2.512,17.444-6.638c2.942,4.015,7.678,6.638,13.026,6.638c8.91,0,16.158-7.247,16.158-16.156v-10.16
+                            C131.885,104.621,110.967,83.703,85.256,83.703z M85.256,144.648c-7.893,0-14.314-6.422-14.314-14.316
+                            c0-7.893,6.422-14.314,14.314-14.314c7.893,0,14.313,6.421,14.313,14.314C99.569,138.226,93.148,144.648,85.256,144.648z"/>
+                    </g>
+                </svg>
+            </div>
+            <p>contact</p>
+            
+        </div>
+        <ul class="menu" id="menu">
+            <li>BIENVENUE</li>
+            <li>LE PROJET</li>
+            <li>LES PROBLÈMES</li>
+            <li>LA CONFIANCE</li>
+            <li>INNOVATIONS</li>
+            <li>PUCE INTÉGRÉE</li>
+            <li>APPLICATION MOBILE</li>
+            <li>STATISTIQUES</li>
+            <li>LE MARCHÉ</li>
+            <li>LA CONCURRENCE</li>
+            <li>CONCLUSION</li>
+
+            <script>
+                var menu = document.getElementById('menu');
+                var menuSize = menu.children.length - 1;
+
+                for (let i = 0; i < menuSize; i++) {
+                    menu.children[i].addEventListener('click', function(e) {
+                        goTo(i);
+                    })
+                }
+
+                function goTo(i) {
+                    if (currentSection == i || body.classList.contains('animation')) {
+                        return;
+                    }
+
+                    body.classList.add('animation');
+                    if (currentSection < i) {
+                        for (let j = currentSection; j < i; j++) {
+                            const element = sections[j];
+                            element.style.transform = 'translateY(-150%)';
+                        }
+                        sections[i].style.transform = 'translateY(0)';
+                        currentSection = i;
+                        sessionStorage.setItem('currentSection', currentSection);
+                        sliderName.innerHTML = sections[currentSection].getAttribute('nameSlider');
+                        slider.style.transform = 'translate(-50.5%, ' + (100 * (currentSection)) + '%)';
+                        setTimeout(() => {
+                            body.classList.remove('animation');
+                        }, 1000);
+                    }
+
+                    else {
+                        for (let j = currentSection; j > i; j--) {
+                            const element = sections[j];
+                            element.style.transform = 'translateY(150%)';
+                        }
+                        sections[i].style.transform = 'translateY(0)';
+                        currentSection = i;
+                        sessionStorage.setItem('currentSection', currentSection);
+                        sliderName.innerHTML = sections[currentSection].getAttribute('nameSlider');
+                        slider.style.transform = 'translate(-50.5%, ' + (100 * (currentSection)) + '%)';
+                        setTimeout(() => {
+                            body.classList.remove('animation');
+                        }, 1000);
+                    }
+                }
+            </script>
+        </ul>
+    </div>
+    <div class="header section" id="header" nameSlider="bienvenue">
+        <div class="title">
+            <p class="left">BITARRAYS</p>
+            <p class="toptitle">SAFEWEAR</p>
+            <div class="subtitle">
+                <p class="behind">Bienvenue</p>
+                Bienvenue
+            </div>
+        </div>
+        <div class="safearea">
+            <p style="width: 90%; text-align: center; position: relative; left: 50%; transform: translateX(-50%); max-width: 800px;">Vous allez ici découvrir le projet inité pendant la semaine dédiée à la recherche et à l'innovation de notre cursus de formation d'ingénieur. Ce dernier n'est pas abouti et n'est qu'une ébauche d'une idée innovante. Vous trouverez en parcourant ce site web notre plan et la génèse de cette idée.</p>
+            <div class="profiles">
+                <div class="profile" id="rounded4" style="background-image: url(https://bitarrays.fr/about/members/quentin-fisch/pp.png); background-position: center; background-size: cover;">
+                    <p>Quentin FISCH</p>
+                </div>
+                <div class="profile" id="rounded5" style="background: url(c.png); background-position: center; background-size: cover;">
+                    <p>Charles SIMON-MEUNIER</p>
+                </div>
+                <div class="profile" id="rounded6" style="background: url(https://bitarrays.fr/about/members/brice-boisson/pp.png); background-position: center; background-size: cover;">
+                    <p>Brice BOISSON</p>
+                </div>
+                <div class="profile" id="rounded7" style="background: url(https://bitarrays.fr/about/members/nathan-ave/pp.png); background-position: center; background-size: cover;">
+                    <p>Nathan AVÉ</p>
+                </div>
+                <div class="profile" id="rounded8" style="background: url(https://bitarrays.fr/about/members/maxime-madrau/pp.png); background-position: center; background-size: cover;">
+                    <p>Maxime MADRAU</p>
+                </div>
+                <div class="profile" id="rounded9" style="background: url(pierre.jacobe.jpeg); background-position: center; background-size: cover;">
+                    <p>Pierre JACOBÉ</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section" id="1" nameSlider="le projet">
+        <div class="title">
+            <p class="left">BITARRAYS</p>
+            <p class="toptitle">SAFEWEAR</p>
+            <div class="subtitle">
+                <p class="behind">Le projet</p>
+                Le projet
+            </div>
+        </div>
+        <div class="safearea">
+            <div class="flex-section nocolumn">
+                <div class="left">
+                    <img src="shoe.png" alt="" style="max-height: 70%; position: relative; left: 50%; transform: translateX(-50%); max-width: 80%;">
+                </div>
+                <div class="right">
+                    <p class="title" style="left: 0; font-weight: 600; font-size: 130%;">LA BLOCKCHAIN FACE À LA CONTREFAÇON</p>
+                    <p class="message">Face au marché explosif de la contrefaçon, nous proposons une solution efficace et robuste: l’utilisation de la blockchain pour traquer les vêtements. Grâce à une puce intégrée aux modèles, les articles enregistrés dans une blockchain à l’achat, pour permettre d’identifier l’article comme original.
+                        Lors de transactions de particuliers à particuliers, l’acheteur pourra scanner la puce et s’assurer de l’authenticité du produit. Le concepteur du produit saura également qu’un nouveau propriétaire détient l’article. La blockchain est alors actualisée et le produit traçable depuis son achat.
+                        </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" id="2" nameSlider="Les problèmes">
+        <div class="title">
+            <p class="left">BITARRAYS</p>
+            <p class="toptitle">SAFEWEAR</p>
+            <div class="subtitle">
+                <p class="behind">Les problèmes</p>
+                Les problèmes
+            </div>
+        </div>
+        <div class="safearea">
+            <div class="icons">
+                <div class="icon" style="display: flex; justify-content: center; align-items: center;"><img src="icon1.png" alt="" style="width: 30%; height: 30%;"></div>
+                <div class="icon" style="background-color: rgba(150, 165, 173, 1);display: flex; justify-content: center; align-items: center;"><img src="icon2.png" alt="" style="width: 30%; height: 30%;"></div>
+                <div class="icon" style="background-color: rgba(104, 105, 107, .8);display: flex; justify-content: center; align-items: center;"><img src="icon3.png" alt="" style="width: 30%; height: 30%;"></div>
+            </div>
+            <div class="texts">
+                <div class="text">
+                    <div class="letter" id="rounded1">A</div>
+                    <div class="content">
+                        <p class="title">L'authenticité</p>
+                        <p class="content">La contrefaçon génère de nombreuses pertes.</p>
+                    </div>
+                </div>
+                <div class="text">
+                    <div class="letter" id="rounded2" style="background-color: rgba(150, 165, 173, 1);">B</div>
+                    <div class="content">
+                        <p class="title">La confiance</p>
+                        <p class="content">Faire confiance aux vendeurs particuliers n’est pas évident.</p>
+                    </div>
+                </div>
+                <div class="text">
+                    <div class="letter" id="rounded3" style="background-color: rgba(104, 105, 107, .8);">C</div>
+                    <div class="content">
+                        <p class="title">La traçabilité</p>
+                        <p class="content">La provenance des produits de particuliers n’est pas connue.</p>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                var rounded = []
+                rounded.push(document.getElementById('rounded1'));
+                rounded.push(document.getElementById('rounded2'));
+                rounded.push(document.getElementById('rounded3'));
+                rounded.push(document.getElementById('rounded4'));
+                rounded.push(document.getElementById('rounded5'));
+                rounded.push(document.getElementById('rounded6'));
+                rounded.push(document.getElementById('rounded7'));
+                rounded.push(document.getElementById('rounded8'));
+                rounded.push(document.getElementById('rounded9'));
+
+                rounded.forEach(element => {
+                    element.style.height = element.offsetWidth;
+                });
+
+                window.addEventListener('resize', function() {
+                    rounded.forEach(element => {
+                        element.style.height = element.offsetWidth;
+                    });
+                })
+            </script>
+        </div>
+    </div>
+
+    <div class="section" id="2.5" nameSlider="La confiance">
+        <div class="title">
+            <p class="left">BITARRAYS</p>
+            <p class="toptitle">SAFEWEAR</p>
+            <div class="subtitle">
+                <p class="behind">La confiance</p>
+                <span style="color: rgb(68, 146, 141);">02:</span> La confiance
+            </div>
+        </div>
+        <div class="safearea">
+            <div class="flex-section nocolumn">
+                <div class="left">
+                    <img src="confiance.png" alt="" style="max-height: 70%; position: relative; left: 50%; transform: translateX(-50%); max-width: 80%;">
+                </div>
+                <div class="right">
+                    <p style="font-weight: 300; font-size: 120%;">La confiance entre particuliers ne sera plus un problème ! Les ventes entre clients seront guidées par l’application permettant d’authentifier chaque produit et d’obtenir des informations complémentaires. <br><br>Les arnaques sont nombreuses et parfois difficile à détecter. Si le scan est impossible, alors le produit n’est pas original et l’acheteur peut partir. Tous les produits affichés sur la section de revente sont pucés et scannables lors de l’achat.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" id="3" nameSlider="innovations">
+        <div class="title">
+            <p class="left">BITARRAYS</p>
+            <p class="toptitle">SAFEWEAR</p>
+            <div class="subtitle">
+                <p class="behind">Nos innovations</p>
+                Nos innovations
+            </div>
+        </div>
+        <div class="safearea">
+            <div class="flex-section">
+                <div class="left hide">
+                    <img src="innovations.png" alt="" style="max-height: 90%; position: relative; left: 50%; transform: translateX(-50%); max-width: 90%;">
+                </div>
+                <div class="right">
+                    <div class="item" style="display: flex; flex-direction: row; height: max-content; align-items: center;">
+                        <img src="point.png" alt="" style="height: 60; margin-right: 25px; max-height: 5vw;">
+                        <div class="text">
+                            <p class="title" style="left: 0; font-weight: 600;">PUCE INTÉGRÉE</p>
+                            <p class="content">Une puce indetectable dans le produit</p>
+                            <hr style="border: 3px solid #000; width: 85%; margin-left: -2%;">
+                        </div>
+                    </div>
+                    <div class="item" style="display: flex; flex-direction: row; height: max-content; align-items: center;">
+                        <img src="point.png" alt="" style="height: 60; margin-right: 25px; max-height: 5vw;">
+                        <div class="text">
+                            <p class="title" style="left: 0; font-weight: 600;">APPLICATION MOBILE</p>
+                            <p class="content">Une application gratuite et indispensable avec scan et infos.</p>
+                            <hr style="border: 3px solid #000; width: 85%; margin-left: -2%;">
+                        </div>
+                    </div>
+                    <div class="item" style="display: flex; flex-direction: row; height: max-content; align-items: center;">
+                        <img src="point.png" alt="" style="height: 60; margin-right: 25px; max-height: 5vw;">
+                        <div class="text">
+                            <p class="title" style="left: 0; font-weight: 600;">STATISTIQUES</p>
+                            <p class="content">Une assurance de la connaissance du produit pour l’utilisateur et le créateur.</p>
+                            <hr style="border: 3px solid #000; width: 85%; margin-left: -2%;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" id="4" nameSlider="puce intégrée">
+        <div class="title">
+            <p class="left">BITARRAYS</p>
+            <p class="toptitle">SAFEWEAR</p>
+            <div class="subtitle">
+                <p class="behind">Puce intégrée</p>
+                <span style="color: rgb(68, 146, 141);">01:</span> Puce intégrée
+            </div>
+        </div>
+        <div class="safearea">
+            <div class="flex-section">
+                <div class="left hide">
+                    <img src="puce.png" alt="" style="max-height: 90%; position: relative; left: 50%; transform: translateX(-50%); max-width: 90%;">
+                </div>
+                <div class="right">
+                    <div class="item" style="display: flex; flex-direction: row; height: max-content; align-items: center;">
+                        <img src="1.png" alt="" style="height: 60; margin-right: 25px; max-height: 5vw;">
+                        <div class="text">
+                            <p class="title" style="left: 0; font-weight: 600;">INVISIBLE</p>
+                            <p class="content">Une puce intégrée au produit qui certifie de son authenticité.</p>
+                            <hr style="border: 3px solid #000; width: 85%; margin-left: -2%;">
+                        </div>
+                    </div>
+                    <div class="item" style="display: flex; flex-direction: row; height: max-content; align-items: center;">
+                        <img src="qr-code-scan.png" alt="" style="height: 60; margin-right: 25px; max-height: 5vw;">
+                        <div class="text">
+                            <p class="title" style="left: 0; font-weight: 600;">SCANNABLE</p>
+                            <p class="content">Permet au produit de porter ses propres informations accessibles via un scan.</p>
+                            <hr style="border: 3px solid #000; width: 85%; margin-left: -2%;">
+                        </div>
+                    </div>
+                    <div class="item" style="display: flex; flex-direction: row; height: max-content; align-items: center;">
+                        <img src="info.png" alt="" style="height: 60; margin-right: 25px; max-height: 5vw;">
+                        <div class="text">
+                            <p class="title" style="left: 0; font-weight: 600;">INFORMATIVE</p>
+                            <p class="content">En tant qu’utilisateur, vous pouvez obtenir à tout moment des informations sur vos produits grâce au scan (nombre de mains, prix, date et lieu d’achat, nombre de scans…).</p>
+                            <hr style="border: 3px solid #000; width: 85%; margin-left: -2%;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" id="5" nameSlider="application mobile">
+        <div class="title">
+            <p class="left">BITARRAYS</p>
+            <p class="toptitle">SAFEWEAR</p>
+            <div class="subtitle">
+                <p class="behind">Application mobile</p>
+                <span style="color: rgb(68, 146, 141);">02:</span> Application mobile
+            </div>
+        </div>
+        <div class="safearea">
+            <div class="flex-section">
+                <div class="left hide">
+                    <video src="app.mov" autoplay loop muted playsinline style="max-height: 90%; max-width: 90%; position: relative; left: 50%; transform: translateX(-50%); border-radius: 8px;"></video>
+                </div>
+                <div class="right">
+                    <div class="item" style="display: flex; flex-direction: row; height: max-content; align-items: center;">
+                        <img src="no-money.png" alt="" style="height: 60; margin-right: 25px; max-height: 5vw;">
+                        <div class="text">
+                            <p class="title" style="left: 0; font-weight: 600;">GRATUITE</p>
+                            <p class="content">Une application entièrement gratuite pour chaque utilisateur qui souhaitent acheter ou non.</p>
+                            <hr style="border: 3px solid #000; width: 85%; margin-left: -2%;">
+                        </div>
+                    </div>
+                    <div class="item" style="display: flex; flex-direction: row; height: max-content; align-items: center;">
+                        <img src="qr-code-scan.png" alt="" style="height: 60; margin-right: 25px; max-height: 5vw;">
+                        <div class="text">
+                            <p class="title" style="left: 0; font-weight: 600;">SCAN INTÉGRÉ</p>
+                            <p class="content">En tant qu’utilsateur, vous pouvez scanner un produit pucé pour obtenir des informations supplémentaires.</p>
+                            <hr style="border: 3px solid #000; width: 85%; margin-left: -2%;">
+                        </div>
+                    </div>
+                    <div class="item" style="display: flex; flex-direction: row; height: max-content; align-items: center;">
+                        <img src="shopping-bag.png" alt="" style="height: 60; margin-right: 25px; max-height: 5vw;">
+                        <div class="text">
+                            <p class="title" style="left: 0; font-weight: 600;">SECTION DE REVENTE</p>
+                            <p class="content">Une section de vente en ligne réservée aux produits pucés, garantissant sécurité et mise en avant des produits.</p>
+                            <hr style="border: 3px solid #000; width: 85%; margin-left: -2%;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" id="6" nameSlider="Statistiques">
+        <div class="title">
+            <p class="left">BITARRAYS</p>
+            <p class="toptitle">SAFEWEAR</p>
+            <div class="subtitle">
+                <p class="behind">Statistiques</p>
+                <span style="color: rgb(68, 146, 141);">03:</span> Statistiques
+            </div>
+        </div>
+        <div class="safearea">
+            <div class="flex-section">
+                <div class="left hide">
+                    <img src="stats.png" alt="" style="max-height: 90%; position: relative; left: 50%; transform: translateX(-50%); max-width: 90%;">
+                </div>
+                <div class="right">
+                    <div class="item" style="display: flex; flex-direction: row; height: max-content; align-items: center;">
+                        <img src="security.png" alt="" style="height: 60; margin-right: 25px; max-height: 5vw;">
+                        <div class="text">
+                            <p class="title" style="left: 0; font-weight: 600;">SÉCURITÉ</p>
+                            <p class="content">Pour vous informer de l’origine du produit, date, lieu et prix de l’achat initial ou entre particuliers.</p>
+                            <hr style="border: 3px solid #000; width: 85%; margin-left: -2%;">
+                        </div>
+                    </div>
+                    <div class="item" style="display: flex; flex-direction: row; height: max-content; align-items: center;">
+                        <img src="aim.png" alt="" style="height: 60; margin-right: 25px; max-height: 5vw;">
+                        <div class="text">
+                            <p class="title" style="left: 0; font-weight: 600;">PRÉCISION</p>
+                            <p class="content">Utilisateurs comme créateurs, découvrez combien de personnes ont possédé et scanné un produit, avec un simple scan.</p>
+                            <hr style="border: 3px solid #000; width: 85%; margin-left: -2%;">
+                        </div>
+                    </div>
+                    <div class="item" style="display: flex; flex-direction: row; height: max-content; align-items: center;">
+                        <img src="blockchain.png" alt="" style="height: 60; margin-right: 25px; max-height: 5vw;">
+                        <div class="text">
+                            <p class="title" style="left: 0; font-weight: 600;">GLOBALITÉ</p>
+                            <p class="content">En tant que créateur, obtenez des informations sur le nombre de produits vendus au total, les emails des acheteurs d’occasion et les prix de revente.</p>
+                            <hr style="border: 3px solid #000; width: 85%; margin-left: -2%;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" id="7" nameSlider="marché">
+        <div class="title">
+            <p class="left">BITARRAYS</p>
+            <p class="toptitle">SAFEWEAR</p>
+            <div class="subtitle">
+                <p class="behind">Le marché</p>
+                Le marché
+            </div>
+        </div>
+        <div class="safearea">
+            <div class="flex-section center mobile" style="padding: 20px;">
+                <div class="left" style="max-height: 100%; height: max-content;">
+                    <p class="title">ÉTAT DU MARCHÉ ACTUEL</p>
+                    <p class="message">Les marques se battent pour tenter de défier la contrefaçon de nos jours. Notre marché se concentrant sur les chaussures, vêtements et autres produits luxueux, il est totalement prêt à recevoir une solution comme la nôtre. <br><br>
+                        Pour ce qui est des utilisateurs, pouvoir s’assurer de l’authenticité d’un produit est un avantage considérable lors d’achats entre particuliers, les anarques étant très fréquentes.                        
+                        </p>
+                </div>
+                <div class="right" style="padding: 15px; height: 100%; max-width: 100%;"><img src="marché.png" alt="" style="max-height: 50vh; max-width: 100%;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" id="8" nameSlider="concurrence">
+        <div class="title">
+            <p class="left">BITARRAYS</p>
+            <p class="toptitle">SAFEWEAR</p>
+            <div class="subtitle">
+                <p class="behind">La concurrence</p>
+                La concurrence
+            </div>
+        </div>
+        <div class="safearea">
+            <div class="flex-section center mobile" style="padding: 20px;">
+                <div class="left" style="max-height: 100%; height: max-content;">
+                    <p class="title">COMPARAISON AVEC LES SOLUTIONS CONCURRENTES EN DÉVELOPPEMENT</p>
+                    <p class="message">Des similitudes pour mieux dissocier les avancées ! Avec des puces intégrées aux produits, un scan direct avec affichage d’informations et des statistiques poussées grâce à la puce intégrée, nous innovons pour vous. De plus, nous avons créé un espace de revente sécurisé sur des produits 100% pucés !</p>
+                </div>
+                <div class="right" style="padding: 15px; height: 100%; max-width: 100%;"><img src="concurrence.png" alt="" style="max-height: 50vh; max-width: 100%;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" id="9" nameSlider="conclusion">
+        <div class="title">
+            <p class="left">BITARRAYS</p>
+            <p class="toptitle">SAFEWEAR</p>
+            <div class="subtitle">
+                <p class="behind">Conclusion</p>
+                Conclusion
+            </div>
+        </div>
+        <div class="safearea">
+            <div class="texts last" style="flex-wrap: wrap;">
+                <div class="text" style="min-width: 45%; margin: 0px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 2%;">
+                    <p class="head" style="font-weight: 600; font-size: 130%; text-align: center;">Blockchain</p>
+                    <p class="content" style="font-weight: 300; margin: 0; margin-top: -.5em; text-align: center;">L’utilisation de la blockchain permet un enregistrement de donné très sécurisé et unique.</p>
+                </div>
+                <div class="text" style="min-width: 45%; margin: 0px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 2%;">
+                    <p class="head" style="font-weight: 600; font-size: 130%; text-align: center;">Puce intégrée</p>
+                    <p class="content" style="font-weight: 300; margin: 0; margin-top: -.5em; text-align: center;">Une puce intégrée au produit qui certifie de son authenticité. Obtenez des informations sur les produits que vous scannez.</p>
+                </div>
+                <div class="text" style="min-width: 45%; margin: 0px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 2%;">
+                    <p class="head" style="font-weight: 600; font-size: 130%; text-align: center;">Scan</p>
+                    <p class="content" style="font-weight: 300; margin: 0; margin-top: -.5em; text-align: center;">Un système de scan intégré à l’application mobile pour scanner un produit pucé à tout moment.</p>
+                </div>
+                <div class="text" style="min-width: 45%; margin: 0px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 2%;">
+                    <p class="head" style="font-weight: 600; font-size: 130%; text-align: center;">Revente entre particuliers</p>
+                    <p class="content" style="font-weight: 300; margin: 0; margin-top: -.5em; text-align: center;">Une section de l’application dédiée à la mise en vente de produits pucés pour une sécurité parfait.</p>
+                </div>
+                <div class="text" style="min-width: 45%; margin: 0px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 2%;">
+                    <p class="head" style="font-weight: 600; font-size: 130%; text-align: center;">Statistiques utilisateurs</p>
+                    <p class="content" style="font-weight: 300; margin: 0; margin-top: -.5em; text-align: center;">Scannez un produit et obtenez de nombreuses statistiques sur la date, le lieu ainsi que le prix d’achat initial.</p>
+                </div>
+                <div class="text" style="min-width: 45%; margin: 0px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 2%;">
+                    <p class="head" style="font-weight: 600; font-size: 130%; text-align: center;">Statistiques créateurs</p>
+                    <p class="content" style="font-weight: 300; margin: 0; margin-top: -.5em; text-align: center;">Obtenez les emails des acheteurs lors d’un achat d’occasion ainsi qu’un suivi de statistiques sur vos produits.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .footer {
+            display: none;
+            height: 70px;
+            border-top: 2px solid #000;
+            width: 94%;
+            margin-top: 5%;
+            flex-direction: row;
+            padding: 0 3%;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 300;
+            font-size: 70%;
+        }
+
+        @media screen and (max-width: 1000px), screen and (max-height: 700px) {
+            .footer {
+                display: flex;
+            }
+        }
+    </style>
+
+    <div class="footer">
+        <p>Copyright © 2020</p>
+        <p>Bitarrays | Recherche et Innovation</p>
+    </div>
+
+    <script>
+        var body = document.getElementById('body');
+        var sections = [];
+        sections.push(document.getElementById('header'));
+        sections.push(document.getElementById('1'));
+        sections.push(document.getElementById('2'));
+        sections.push(document.getElementById('2.5'));
+        sections.push(document.getElementById('3'));
+        sections.push(document.getElementById('4'));
+        sections.push(document.getElementById('5'));
+        sections.push(document.getElementById('6'));
+        sections.push(document.getElementById('7'));
+        sections.push(document.getElementById('8'));
+        sections.push(document.getElementById('9'));
+        
+
+        var slider = document.getElementById('current');
+        var sliderName = slider.parentElement.children[0];
+
+
+        var currentSection = sessionStorage.getItem('currentSection') ? parseInt(sessionStorage.getItem('currentSection')) : 0;
+        if (window.innerWidth > 1000 && window.innerHeight > 700) {
+            for (let i = 0; i < currentSection - 1; i++) {
+                sections[currentSection].style.transform = 'translateY(-100%)';
+            }
+
+            sliderName.innerHTML = sections[currentSection].getAttribute('nameSlider');
+            slider.style.transform = 'translate(-50.5%, ' + (100 * (currentSection)) + '%)';
+            for (let i = 0; i < currentSection; i++) {
+                const element = sections[i];
+                element.style.transform = 'translateY(-150%)';
+            }
+            sections[currentSection].style.transform = 'translateY(0)';
+            for (let i = (currentSection + 1); i < sections.length; i++) {
+                const element = sections[i];
+                element.style.transform = 'translateY(150%)';
+            }
+        }
+        
+
+        window.addEventListener('wheel', function(e) {
+            if(window.innerWidth > 1000 && window.innerHeight > 700 && !body.classList.contains('animation')) {
+                if(e.deltaY > 1) {
+                    body.classList.add('animation');
+                    upSections();
+                }
+                else if (e.deltaY < -1) {
+                    body.classList.add('animation');
+                    downSections();
+                }
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if(window.innerWidth > 1000 && window.innerHeight > 700 && !body.classList.contains('animation')){
+                var code = e.which || e.keyCode;
+                if (code == '38' || code == '37') {
+                    body.classList.add('animation');
+                    downSections();
+                }
+                else if (code == '40' || code == '32' || code == '39') {
+                    body.classList.add('animation');
+                    upSections();
+                }
+            }
+        });
+
+        function upSections() {
+            if(body.classList.contains('animation')) {
+                if (currentSection + 1 >= sections.length) {
+                    sections[currentSection].style.transform = 'translateY(-10%)';
+                    setTimeout(() => {
+                        sections[currentSection].style.transform = 'translateY(0%)';
+                    }, 300);
+                    setTimeout(() => {
+                        body.classList.remove('animation');
+                    }, 600);
+                    return;
+                }
+                sections[currentSection + 1].style.transform = 'translateY(0)';
+                sections[currentSection].style.transform = 'translateY(-100%)';
+                slider.style.transform = 'translate(-50.5%, ' + (100 * (currentSection + 1)) + '%)';
+                currentSection++;
+                sessionStorage.setItem('currentSection', currentSection);
+                sliderName.innerHTML = sections[currentSection].getAttribute('nameSlider');
+                setTimeout(() => {
+                    console.log('end up');
+                    body.classList.remove('animation');
+                }, 1500);
+            }
+        }
+
+        function downSections() {
+            if(body.classList.contains('animation')) {
+                if (currentSection - 1 < 0) {
+                    sections[currentSection].style.transform = 'translateY(10%)';
+                    setTimeout(() => {
+                        sections[currentSection].style.transform = 'translateY(0%)';
+                    }, 300);
+                    setTimeout(() => {
+                        body.classList.remove('animation');
+                    }, 600);
+                    return;
+                }
+                sections[currentSection - 1].style.transform = 'translateY(0)';
+                sections[currentSection].style.transform = 'translateY(150%)';
+                slider.style.transform = 'translate(-50.5%, ' + (100 * (currentSection - 1)) + '%)';
+                currentSection--;
+                sessionStorage.setItem('currentSection', currentSection);
+                sliderName.innerHTML = sections[currentSection].getAttribute('nameSlider');
+                setTimeout(() => {
+                    console.log('end down');
+                    body.classList.remove('animation');
+                }, 1500);
+            }
+        }
+
+        setTimeout(() => {
+            document.getElementById('loading').style.opacity = 0;
+        }, 1300);
+
+        setTimeout(() => {
+            document.getElementById('loading').style.display = 'none';
+        }, 2300);
+
+        if (!body.classList.contains('mobile') && (window.innerWidth <= 1000 || window.innerHeight <= 700)) {
+            body.classList.add('mobile');
+        }
+
+        window.addEventListener('resize', function() {
+            if (!body.classList.contains('mobile') && (window.innerWidth <= 1000 || window.innerHeight <= 700)) {
+                body.classList.add('mobile');
+                document.getElementById('loading').style.transition = '0s';
+                document.getElementById('loading').style.opacity = 1;
+                document.getElementById('loading').style.display = 'unset';
+                setTimeout(() => {
+                    document.getElementById('loading').style.transition = '1s';
+                    document.getElementById('loading').style.opacity = 0;
+                }, 1300);
+
+                setTimeout(() => {
+                    document.getElementById('loading').style.display = 'none';
+                }, 2300);
+                sections.forEach(element => {
+                    element.style.transform = 'translateY(0%)';
+                });
+            }
+
+            if (body.classList.contains('mobile') && window.innerWidth > 1000 && window.innerHeight > 700) {
+                body.classList.remove('mobile');
+                document.getElementById('loading').style.transition = '0s';
+                document.getElementById('loading').style.opacity = 1;
+                document.getElementById('loading').style.display = 'unset';
+                setTimeout(() => {
+                    document.getElementById('loading').style.transition = '1s';
+                    document.getElementById('loading').style.opacity = 0;
+                }, 1300);
+
+                setTimeout(() => {
+                    document.getElementById('loading').style.display = 'none';
+                }, 2300);
+                for (let i = 0; i < currentSection - 1; i++) {
+                    sections[currentSection].style.transform = 'translateY(-150%)';
+                }
+
+                sliderName.innerHTML = sections[currentSection].getAttribute('nameSlider');
+                slider.style.transform = 'translate(-50.5%, ' + (100 * (currentSection)) + '%)';
+                for (let i = 0; i < currentSection; i++) {
+                    const element = sections[i];
+                    element.style.transform = 'translateY(-150%)';
+                }
+                sections[currentSection].style.transform = 'translateY(0)';
+                for (let i = (currentSection + 1); i < sections.length; i++) {
+                    const element = sections[i];
+                    element.style.transform = 'translateY(150%)';
+                }
+            }
+        })
+
+    </script>
+
+</body>
+</html>
